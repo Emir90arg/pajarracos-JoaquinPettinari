@@ -1,0 +1,81 @@
+import Ave.*
+import Aguilucho.*
+import AguiluchoColorado.*
+import Albatros.*
+import Paloma.*
+import PalomaTorcaza.*
+import Isla.*
+
+describe "Testeos" {
+
+	// Aves
+	var aguiluchoRed = new AguiluchoColorado()
+	var palomaTor = new PalomaTorcaza()
+	var albatro = new Albatro()
+	// Isla
+	var isla = new Isla()
+
+	fixture {
+		albatro.irAlGimnasio()
+		isla.agregarAve(aguiluchoRed)
+		isla.agregarAve(palomaTor)
+		isla.agregarAve(albatro)
+	}
+
+	// Item 1
+	test "Fuerza Aguilucho" {
+		assert.equals(580, aguiluchoRed.fuerza())
+	}
+
+	test "Fuerza Albatros" {
+		assert.equals(1100, albatro.fuerza())
+	}
+
+	test "Fuerza Paloma" {
+		assert.equals(700, palomaTor.fuerza())
+	}
+
+	// Item 2
+	test "Peso Aguilucho" {
+		assert.equals(4500, albatro.peso())
+	}
+
+	// Item 3
+	test "Fuerza total de la isla" {
+		assert.equals(2380, isla.fuerzaTotal())
+	}
+
+	// Item 4
+	test "Aves debiles" {
+		assert.equals([ aguiluchoRed, palomaTor ], isla.avesDebiles())
+	}
+
+	// Terremoto
+	test "TERREMOTOOOO!!" {
+		isla.terremoto()
+		assert.equals(40, aguiluchoRed.velocidad())
+		assert.equals(5300, albatro.peso())
+		assert.equals(500, palomaTor.ira())
+	}
+
+	// Separo, para que no quede todo junto
+	test "TERREMOTOOOO!! Parte 2" {
+		isla.terremoto()
+		assert.equals(580, aguiluchoRed.fuerza())
+		assert.equals(1100, albatro.fuerza())
+		assert.equals(1400, palomaTor.fuerza())
+		assert.equals([ aguiluchoRed ], isla.avesDebiles())
+	}
+
+	test "Tormenta con terremoto" {
+		isla.terremoto()
+		isla.tormenta()
+		assert.equals(80, aguiluchoRed.velocidad())
+		assert.equals(640, aguiluchoRed.fuerza())
+		assert.equals(5300, albatro.peso())
+		assert.equals(500, palomaTor.ira())
+		assert.equals(4, palomaTor.huevos())
+	}
+
+}
+

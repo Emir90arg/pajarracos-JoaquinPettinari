@@ -1,0 +1,59 @@
+import Ave.*
+import Aguilucho.*
+import AguiluchoColorado.*
+import Albatros.*
+import Paloma.*
+import PalomaTorcaza.*
+import PalomaManchada.*
+import PalomaMontera.*
+import Isla.*
+
+describe "Test segunda etapa" {
+
+	// Aves
+	const paloma = new Paloma()
+	const aguilucho = new Aguilucho()
+	const albatro = new Albatro()
+	// Isla
+	const isla = new Isla()
+
+	fixture {
+		isla.agregarAve(aguilucho)
+		isla.agregarAve(paloma)
+		isla.agregarAve(albatro)
+	}
+
+	// VOY A TOMAR LOS VALORES INICIALES DE LAS AVES PARA RESOLVER ESTOS TEST
+	test "Capitana" {
+		// Si isla no tiene ave capitana falla.
+		paloma.recibirUnDisgusto()
+		paloma.recibirUnDisgusto()
+		paloma.recibirUnDisgusto()
+		assert.equals(2200, paloma.fuerza())
+		assert.equals(paloma, isla.aveCapitana())
+	}
+
+	test "Sesion relax" {
+		isla.sesionRelax()
+		assert.equals(10, aguilucho.velocidad())
+		assert.equals(3700, albatro.peso())
+		assert.equals(150, paloma.ira())
+	}
+
+	test "Isla en paz" {
+		assert.that(albatro.estaConforme(isla))
+		assert.that(aguilucho.estaConforme(isla))
+		assert.notThat(paloma.estaConforme(isla))
+		assert.notThat(isla.estaEnPaz())
+	}
+
+	test "Alimentacion" {
+		isla.alimentacion()
+		assert.equals(6, isla.maiz())
+		assert.equals(1300, albatro.masaMuscular())
+		assert.equals(7, isla.alpiste())
+		assert.equals(35, aguilucho.velocidad())
+	}
+
+}
+

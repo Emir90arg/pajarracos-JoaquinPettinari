@@ -1,0 +1,60 @@
+import Ave.*
+import Aguilucho.*
+import AguiluchoColorado.*
+import Albatros.*
+import Paloma.*
+import PalomaTorcaza.*
+import PalomaManchada.*
+import PalomaMontera.*
+import Isla.*
+
+describe "Mas sobre las palomas" {
+
+	// Aves
+	const paloma = new Paloma()
+	const palomaManc = new PalomaManchada()
+	const palomaMont = new PalomaMontera(tope = 2000)
+	// Isla
+	const isla = new Isla()
+
+	fixture {
+		isla.agregarAve(paloma)
+		isla.agregarAve(palomaManc)
+		isla.agregarAve(palomaMont)
+	}
+
+	test "Equilibrarse" {
+		paloma.equilibrarse()
+		assert.equals(500, paloma.ira())
+		paloma.recibirUnDisgusto()
+		paloma.equilibrarse()
+		assert.equals(750, paloma.ira())
+	}
+
+	test "Paloma Montera" {
+		palomaMont.recibirUnDisgusto()
+		palomaMont.recibirUnDisgusto()
+		palomaMont.recibirUnDisgusto()
+		palomaMont.recibirUnDisgusto()
+		palomaMont.recibirUnDisgusto()
+		assert.equals(2000, palomaMont.fuerza())
+	}
+
+	test "Paloma Manchada 1" {
+		palomaManc.recibirUnDisgusto()
+		palomaManc.recibirUnDisgusto()
+		assert.equals(2, palomaManc.nidos().size())
+// NO puedo comprobar si le sube 1 de grosor a los nidos porque no tengo los 
+// nombres de los objetos
+	}
+
+	test "Paloma Manchada 2" {
+		palomaManc.relajarse()
+		assert.equals(150, palomaManc.ira())
+		palomaManc.recibirUnDisgusto()
+		// 300 de el gusto y 35 de la potencia de un nido 
+		assert.equals(485, palomaManc.ira())
+	}
+
+}
+
