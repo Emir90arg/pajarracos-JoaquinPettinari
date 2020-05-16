@@ -9,6 +9,8 @@ class Ave {
 	method estaConforme(isla)
 
 	method tomaAlimento(isla)
+	
+	
 
 }
 
